@@ -8,9 +8,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-
 app.use(express.json());
-
 (async () => {
   try {
     await mongoDB();
@@ -28,7 +26,6 @@ app.use(express.json());
         res.status(500).json({ success: false, error: error.message });
       }
     });
-
     app.listen(port, () => {
       console.log(`Server is running at http://localhost:${port}`);
     });
@@ -36,5 +33,4 @@ app.use(express.json());
     console.error('Failed to connect to MongoDB, server not started:', err);
   }
 })();
-
 module.exports = app;
