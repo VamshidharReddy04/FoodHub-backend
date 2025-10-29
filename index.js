@@ -15,6 +15,12 @@ app.use(cors({
 // Middleware
 app.use(cookieParser());
 app.use(express.json());
+
+// Health check endpoint (outside IIFE so it works even if DB connection fails)
+app.get('/api/health', (req, res) => {
+  res.json({ success: true, status: 'healthy', message: 'Server is running' });
+});
+
 (async () => {
   try {
     await mongoDB();
@@ -23,11 +29,6 @@ app.use(express.json());
 
     app.use('/api', require('./Routes/CreateUser'));
     app.use('/api', require('./Routes/DisplayData'));
-
-    // Health check endpoint
-    app.get('/api/health', (req, res) => {
-      res.json({ success: true, status: 'healthy', message: 'Server is running' });
-    });
 
     app.get('/', async (req, res) => {
       try {
