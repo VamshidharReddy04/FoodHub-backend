@@ -4,7 +4,7 @@ const User=require('../models/User');
 const {body, validationResult}=require('express-validator');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
-const jwtSecret='Mynameisvamshidharreddy3';
+const jwtSecret = process.env.JWT_SECRET || 'Mynameisvamshidharreddy3';
 
 //signup route
 router.post('/createuser',[
