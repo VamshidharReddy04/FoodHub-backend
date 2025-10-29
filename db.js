@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const foodData = require('./Food/foodData2.json');
 const foodCategoryData = require('./Food/foodCategory.json');
 
-const mongoURI = 'mongodb+srv://foodhub:vamshi04@cluster1.3islf4s.mongodb.net/foodhub?retryWrites=true&w=majority&appName=Cluster1';
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://foodhub:vamshi04@cluster1.3islf4s.mongodb.net/foodhub?retryWrites=true&w=majority&appName=Cluster1';
 
 // connect to MongoDB and load 'food_items' and 'food_category' into globals
 const mongoDB = async () => {
   try {
-    await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(mongoURI);
     console.log('MongoDB connected');
     const db = mongoose.connection.db;
     const items = await db.collection('food_items').find({}).toArray().catch(() => []);
