@@ -39,7 +39,7 @@ When deploying to Vercel, you need to configure the following environment variab
 - **Note**: Vercel handles this automatically in production
 
 #### Database Configuration
-The MongoDB connection string is currently hardcoded in `db.js`. For production, consider moving this to an environment variable:
+**Note**: The MongoDB connection string is currently hardcoded in `db.js`. This is beyond the scope of this CORS configuration update but should be addressed in a future PR by moving to an environment variable:
 - `MONGODB_URI` - Your MongoDB Atlas connection string
 
 ### Setting Environment Variables in Vercel
@@ -188,10 +188,14 @@ FoodHub-backend/
 
 ## Security Notes
 
-1. **JWT Secret**: Currently hardcoded in `Routes/CreateUser.js`. For production, move to environment variable: `JWT_SECRET`
-2. **MongoDB URI**: Currently hardcoded in `db.js`. For production, move to environment variable: `MONGODB_URI`
-3. **CORS**: Properly configured to only allow requests from your frontend URL
-4. **Password Hashing**: Uses bcryptjs with salt rounds for secure password storage
+**Current State** (existing code, not modified in this PR):
+1. **JWT Secret**: Currently hardcoded in `Routes/CreateUser.js`. For production, should be moved to environment variable: `JWT_SECRET`
+2. **MongoDB URI**: Currently hardcoded in `db.js`. For production, should be moved to environment variable: `MONGODB_URI`
+
+**This PR's Security Enhancements**:
+3. **CORS**: Properly configured to only allow requests from your specified frontend URL via `FRONTEND_URL` environment variable
+4. **Credentials**: CORS credentials flag enabled to support secure authentication flows
+5. **Password Hashing**: Uses bcryptjs with salt rounds for secure password storage (existing feature)
 
 ## Troubleshooting
 

@@ -12,6 +12,7 @@ app.use(cors({
   credentials: true 
 }));
 
+// Parse cookies (currently app uses JWT in headers, but cookie-parser is ready for future cookie-based auth)
 app.use(cookieParser());
 app.use(express.json());
 (async () => {
